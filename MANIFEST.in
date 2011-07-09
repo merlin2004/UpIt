@@ -1,0 +1,7 @@
+include MANIFEST.in AUTHORS COPYING COPYRIGHT upit_apache.conf README.rst
+
+recursive-include upit/inc *
+recursive-include upit/static *
+recursive-include upit/tpl *
+recursive-include upit/upload *
+

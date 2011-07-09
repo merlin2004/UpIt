@@ -1,0 +1,53 @@
+/**
+* UpIt - Fileupload
+*
+* Copyright (C) 2011 Bernhard Posselt, bernhard.posselt@gmx.at
+*
+* UpIt is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 3 of the License, or
+* (at your option) any later version.
+*
+* UpIt is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+*
+*/
+
+/**
+ * Navigation
+ */
+#nav { 
+    background-color: #000;
+    -webkit-box-shadow: 0px 2px 2px 0px #000000;
+    -moz-box-shadow: 0px 2px 2px 0px #000000;
+    box-shadow: 0px 2px 2px 0px #000000; 
+    position: relative;
+    z-index: 2;
+}
+    #nav ul {
+        width: 960px;
+        margin: auto;
+    }
+        
+        #nav ul li {
+            display: inline-block;
+        }
+
+            #nav ul li a {
+                color: #ABB200;
+                line-height: 40px;
+                font-size: 14pt;
+                text-decoration: none;
+                font-weight: bold;
+                padding-right: 20px;
+            }
+
+            #nav ul li a:hover {
+                text-decoration: underline;
+            }

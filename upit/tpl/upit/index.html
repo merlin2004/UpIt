@@ -1,0 +1,76 @@
+{% extends "upit/base.html" %}
+
+{% block content %}
+
+<p class="clipboard_field"></p>
+
+{% if user.is_authenticated %}
+    <div class="upload_form" >
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <span class="upload_file">{{ form.file }}</span>
+            <span>
+                {{ form.folder }}
+            </span>
+            <input type="submit" class="submit" value="upload" />
+        </form>
+    </div>
+{% else %}    
+    <div class="upload_form">
+        <p>Please <a href="{% url upit:login %}">Login</a> to upload files!</p>
+    </div>
+{% endif %}
+
+<div class="folders">
+    <ul>
+        <li><a href="{% url upit:index %}">All Folders</a></li>
+        {% for folder in folders %}
+        <li
+            {% if folder.public %}
+                class="public"
+            {% else %}
+                class="nonpublic"
+            {% endif %}
+        ><a href="{% url upit:index %}?folder={{ folder }}">{{ folder.name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="file_list">
+    {% if active %}
+        <h1>{{ active }}</h1>
+    {% else %}
+        <h1>All Folders</h1>
+    {% endif %}
+    
+    
+    {% for img, f, name, type in files %}
+        <div class="file_item">
+            <p class="file_meta">
+                {{ name }}
+            </p>
+
+            {% if type == "src" %}
+                <a href="{% url upit:src_view f.id %}">
+                    <img src="{{ img }}" alt="{{ f.file }}"/>
+            {% else %}
+                {% if type == "pic" %}
+                    <a href="{% url upit:pic_view f.id %}">
+                        {% url upit:thumb f.id as thumb %}
+                        <img src="{{ thumb }}?scale=128" alt="{{ f.file }}"/>
+                {% else %}
+                    <a href="{% url upit:download f.id %}">
+                        <img src="{{ img }}" alt="{{ f.file }}"/>
+                {% endif %}
+            {% endif %}
+                
+            </a>
+            <p class="file_meta">
+                {{ f.user }}
+            </p>
+        </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

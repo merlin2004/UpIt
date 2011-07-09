@@ -1,0 +1,18 @@
+{% extends "upit/base.html" %}
+
+{% block content %}
+
+
+<div class="pic_view">
+    <ul class="file_meta">
+        <li>{{ pic.user }}</li>
+        <li>{{ pic.file }}</li>
+        <li>{{ pic.datetime }}</li>
+        <li class="link"><a href="{% url upit:download pic.id %}">Download</a></li>
+   </ul>
+   <img src="{% url upit:pic pic.id %}" alt="{{ pic.file }}">
+    
+</div>
+
+
+{% endblock %}

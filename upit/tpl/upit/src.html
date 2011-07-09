@@ -1,0 +1,18 @@
+{% extends "upit/base.html" %}
+
+{% block content %}
+
+
+<div class="src_view">
+   <ul class="file_meta">
+        <li>{{ file.user }}</li>
+        <li>{{ file.file }}</li>
+        <li>{{ file.datetime }}</li>
+        <li class="link"><a href="{% url upit:download file.id %}">Download</a></li>
+   </ul>
+   <pre class="prettyprint linenums">{{ file.file.read }}</pre>
+</div>
+    
+
+
+{% endblock %}
