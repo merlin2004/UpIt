@@ -15,7 +15,7 @@ Python Sqlite
 
 PIL (python-imaging-library)
 
-Apache mod_xsendfile
+Apache mod_xsendfile 0.12
 
 Apache mod_wsgi
 
