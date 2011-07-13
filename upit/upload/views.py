@@ -114,24 +114,18 @@ def download(request, srcid):
 
 
 def thumb(request, srcid):
-    """create a thumb on the fly
+    """Return a thumb to a picture
     """
-    scale = int(request.GET.get("scale", 128))
-    
+    # get thumbnail
     src = UploadFile.objects.get(id=srcid)
     img = src.file
     if img.path.lower().endswith(".png"):
         img_type = "png"
     elif img.path.lower().endswith(".jpg") or img.path.lower().endswith(".jpeg"):
         img_type = "jpeg"
-    
-    ret_img = Image.open(img)
-    ret_img.thumbnail((scale, scale), Image.ANTIALIAS)    
-    response = HttpResponse(mimetype="image/%s" % img_type)
-    ret_img.save(response, img_type.upper())
-    
+    thumb_path = "%suploads/thumbs/%i.%s" % (settings.MEDIA_ROOT, src.id, img_type)
     if src.folder.public or request.user.is_authenticated():
-        return response
+        return serve_img(thumb_path) 
     else:
         return HttpResponseRedirect( reverse('upit:login') )
         

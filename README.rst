@@ -61,7 +61,7 @@ manually in your httpd.conf like in Arch Linux:
 
 Now create the needed directories:
 
-    $ sudo mkdir -p /var/lib/upit/uploads
+    $ sudo mkdir -p /var/lib/upit/uploads/thumbs
     
     $ sudo mkdir /usr/share/upit
     
