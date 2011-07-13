@@ -190,7 +190,7 @@
 
 
     #content .file_list div {
-        float: left;
+        display: inline-block; 
     }
     
         #content .file_list div.file_item {
@@ -208,6 +208,7 @@
             #content .file_list div.file_item .file_meta {
                 color: #F5FFF1;
                 text-align: center;
+                word-wrap: break-word;
             }
 
 /**
