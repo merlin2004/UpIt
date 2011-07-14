@@ -7,3 +7,4 @@
 *.pyc
 *.db
 geany_run_script.sh
+*.swp
