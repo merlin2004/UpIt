@@ -48,6 +48,14 @@ class FolderAdmin(admin.ModelAdmin):
     actions = ['delete_selected']
 
 
+class RatingAdmin(admin.ModelAdmin):
+    list_display = ['upload_file', 'stars', 'upload_file']
+    search_fields = ['upload_file']
+    list_filter = ['upload_file', 'stars']
+    actions = ['delete_selected']
+
+
+admin.site.register(FileRating, RatingAdmin)
 admin.site.register(UploadFile, UploadAdmin)
 admin.site.register(Folder, FolderAdmin)
 admin.site.disable_action('delete_selected')

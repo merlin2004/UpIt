@@ -34,6 +34,24 @@ src_types = ["c", "cpp", "h", "hpp", "cs", "js", "php", "rb", "py", "sh",
 vid_types = ["webm", "ogv"]
 aud_types = ["ogg", "oga"]
 
+# ratings
+class FileRating(models.Model):
+    RATINGS = (
+        (1, u"1 Star"),
+        (2, u"2 Stars"),
+        (3, u"3 Stars"),
+        (4, u"4 Stars"),
+        (5, u"5 Stars"),
+    )
+    upload_file = models.ForeignKey("UploadFile")
+    stars = models.IntegerField("Stars", choices=RATINGS)    
+
+    class Meta:
+        verbose_name = "Rating"
+        verbose_name_plural = "Ratings"
+
+    def __unicode__(self):
+        return self.upload_file.file.path
 
 # Files
 class UploadFile(models.Model):
@@ -51,6 +69,8 @@ class UploadFile(models.Model):
     type = models.CharField("Filetype", choices=FILE_TYPE_CHOICES, max_length=3)
     extension = models.CharField("Extension", max_length=4)
 
+    def __unicode__(self):
+        return os.path.basename(self.file.path)
 
     def get_thumb(self):
         """Returns the thumbnail path according to the filetype
