@@ -6,7 +6,7 @@
 
 {% if user.is_authenticated %}
     <div class="upload_form" >
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="{% if active %}?folder={{ active }}{% endif %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <span class="upload_file">{{ form.file }}</span>
             <span>
@@ -57,7 +57,7 @@
                 {% if type == "pic" %}
                     <a href="{% url upit:pic_view f.id %}">
                         {% url upit:thumb f.id as thumb %}
-                        <img src="{{ thumb }}?scale=128" alt="{{ f.file }}"/>
+                        <img src="{{ thumb }}" alt="{{ f.file }}"/>
                 {% else %}
                     <a href="{% url upit:download f.id %}">
                         <img src="{{ img }}" alt="{{ f.file }}"/>
