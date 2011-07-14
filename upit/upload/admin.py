@@ -49,9 +49,9 @@ class FolderAdmin(admin.ModelAdmin):
 
 
 class RatingAdmin(admin.ModelAdmin):
-    list_display = ['upload_file', 'stars', 'upload_file']
+    list_display = ['upload_file', 'stars', 'user']
     search_fields = ['upload_file']
-    list_filter = ['upload_file', 'stars']
+    list_filter = ['upload_file', 'stars', 'user']
     actions = ['delete_selected']
 
 

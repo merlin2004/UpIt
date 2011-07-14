@@ -45,7 +45,8 @@ class FileRating(models.Model):
     )
     upload_file = models.ForeignKey("UploadFile")
     stars = models.IntegerField("Stars", choices=RATINGS)    
-
+    user = models.ForeignKey("auth.User")
+    
     class Meta:
         verbose_name = "Rating"
         verbose_name_plural = "Ratings"
