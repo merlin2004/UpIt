@@ -126,6 +126,8 @@ def thumb(request, srcid):
     img = src.file
     if img.path.lower().endswith(".png"):
         img_type = "png"
+    elif img.path.lower().endswith(".gif"):
+        img_type = "gif"
     elif img.path.lower().endswith(".jpg") or img.path.lower().endswith(".jpeg"):
         img_type = "jpeg"
     thumb_path = "%suploads/thumbs/%i.%s" % (settings.MEDIA_ROOT, src.id, img_type)

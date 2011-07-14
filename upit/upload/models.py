@@ -53,10 +53,12 @@ class UploadFile(models.Model):
         img_path = img.path
         extension = img_path.rsplit(".")[1].lower()
         # check for allowed extensions
-        if extension in ["jpg", "jpeg", "png"]:
+        if extension in ["jpg", "jpeg", "png", "gif"]:
             # now get right mimetype        
             if extension == "png": 
                 img_type = "png"
+            elif extension == "gif":
+                img_type = "gif"
             else: 
                 img_type = "jpeg"
             thumb = Image.open(img)
@@ -74,10 +76,12 @@ class UploadFile(models.Model):
         img_path = img.path
         extension = img_path.rsplit(".")[1].lower()
         # check for allowed extensions
-        if extension in ["jpg", "jpeg", "png"]:
+        if extension in ["jpg", "jpeg", "png", "gif"]:
             # now get right mimetype        
             if extension == "png": 
                 img_type = "png"
+            elif extension == "gif":
+                img_type = "gif"
             else: 
                 img_type = "jpeg"
             # check if there is a thumbnail

@@ -74,7 +74,7 @@ def gen_filelist(files):
             new_files.append( ( os_join(mime_path, "h.png"), f, basename(f.file.path), "src") )
         
         # picture
-        elif f.file.path.lower().endswith(".png") or f.file.path.lower().endswith(".jpg") or f.file.path.lower().endswith(".jpeg"):
+        elif f.file.path.lower().endswith(".png") or f.file.path.lower().endswith(".jpg") or f.file.path.lower().endswith(".jpeg") or f.file.path.lower().endswith(".gif"):
             new_files.append( ( "%s%s" % (settings.MEDIA_URL, f.file), f, basename(f.file.path), "pic") )       
         
         elif f.file.path.lower().endswith("makefile"):
