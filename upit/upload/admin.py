@@ -26,7 +26,7 @@ class UploadAdmin(admin.ModelAdmin):
     list_display = ['id', 'datetime', 'user', 'file', 'folder']
     ordering = ['-datetime']
     search_fields = ['datetime', 'user', 'file']
-    list_filter = ['user', 'datetime', 'user__username', 'folder__name']
+    list_filter = ['user', 'datetime', 'folder__name']
     date_hierarchy = 'datetime'
 
 class FolderAdmin(admin.ModelAdmin):
