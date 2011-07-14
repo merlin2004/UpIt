@@ -27,5 +27,5 @@ from upit.upload.models import *
 class UploadForm(forms.ModelForm):
     class Meta:
         model = UploadFile
-        exclude = ('datetime', 'user')
+        exclude = ('datetime', 'user', 'extension', 'type')
  

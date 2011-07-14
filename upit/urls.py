@@ -39,7 +39,7 @@ urlpatterns = patterns('',
 )
 
 
-if not settings.DEBUG:
+if not settings.APACHE:
     urlpatterns += patterns('',
         url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {
             'document_root': settings.STATIC_ROOT,

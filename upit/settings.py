@@ -22,7 +22,8 @@ along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 import os
 
 
-DEBUG = False
+DEBUG = True 
+APACHE = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (

@@ -44,23 +44,23 @@
     {% endif %}
     
     
-    {% for img, f, name, type in files %}
+    {% for f in files %}
         <div class="file_item">
             <p class="file_meta">
-                {{ name }}
+                {{ f.file }}
             </p>
 
-            {% if type == "src" %}
+            {% if f.type == "src" %}
                 <a href="{% url upit:src_view f.id %}">
-                    <img src="{{ img }}" alt="{{ f.file }}"/>
+                    <img src="{{ f.get_thumb }}" alt="{{ f.file }}"/>
             {% else %}
-                {% if type == "pic" %}
+                {% if f.type == "img" %}
                     <a href="{% url upit:pic_view f.id %}">
                         {% url upit:thumb f.id as thumb %}
                         <img src="{{ thumb }}" alt="{{ f.file }}"/>
                 {% else %}
                     <a href="{% url upit:download f.id %}">
-                        <img src="{{ img }}" alt="{{ f.file }}"/>
+                        <img src="{{ f.get_thumb }}" alt="{{ f.file }}"/>
                 {% endif %}
             {% endif %}
                 

@@ -29,7 +29,7 @@ from django.conf import settings
 
 from upit.upload.models import *
 from upit.upload.forms import *
-from upit.inc.tools import render, gen_filelist, serve_file, serve_img
+from upit.inc.tools import render, serve_file, serve_img
 
 
 
@@ -43,7 +43,6 @@ def index(request):
         if request.user.is_authenticated():
             files = UploadFile.objects.all()
         else:
-            #files = UploadFile.objects.all()
             files = UploadFile.objects.filter(folder__public=True)
     
     # check if user is allowed to see folder
@@ -59,8 +58,6 @@ def index(request):
         folders = Folder.objects.all()
     else:
         folders = Folder.objects.filter(public=True)
-    
-    new_files = gen_filelist(files)
     
     # get form
     if request.method == 'POST' and request.user.is_authenticated():
@@ -79,7 +76,7 @@ def index(request):
     return render(request, 'upit/index.html', 
                     {   
                         'form': form, 
-                        'files': new_files, 
+                        'files': files, 
                         'folders': folders, 
                         'active': folder
                     }
@@ -123,18 +120,15 @@ def thumb(request, srcid):
     """
     # get thumbnail
     src = UploadFile.objects.get(id=srcid)
-    img = src.file
-    if img.path.lower().endswith(".png"):
-        img_type = "png"
-    elif img.path.lower().endswith(".gif"):
-        img_type = "gif"
-    elif img.path.lower().endswith(".jpg") or img.path.lower().endswith(".jpeg"):
+    img_path = src.file.path
+    if src.extension == "jpg":
         img_type = "jpeg"
+    else:
+        img_type = src.extension
     thumb_path = "%suploads/thumbs/%i.%s" % (settings.MEDIA_ROOT, src.id, img_type)
     if src.folder.public or request.user.is_authenticated():
         return serve_img(thumb_path) 
     else:
-        #return serve_img(thumb_path) 
         return HttpResponseRedirect( reverse('upit:login') )
         
         

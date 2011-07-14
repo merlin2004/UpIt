@@ -22,17 +22,32 @@ along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 from upit.upload.models import *
 from django.contrib import admin
 
-class UploadAdmin(admin.ModelAdmin):
-    list_display = ['id', 'datetime', 'user', 'file', 'folder']
-    ordering = ['-datetime']
-    search_fields = ['datetime', 'user', 'file']
-    list_filter = ['user', 'datetime', 'folder__name']
-    date_hierarchy = 'datetime'
+def delete_marked(modeladmin, request, queryset):
+    for obj in queryset:
+        upload = UploadFile.objects.get(pk=obj.id)
+        upload.delete()
+delete_marked.short_description = "Delete selected Files"
 
+class UploadAdmin(admin.ModelAdmin):
+    list_display = ['id', 'datetime', 'user', 'file', 'folder', 'type', 'extension']
+    ordering = ['-datetime']
+    search_fields = ['datetime', 'user', 'file', 'type', 'extension']
+    list_filter = ['user', 'datetime', 'folder__name', 'type', 'extension']
+    date_hierarchy = 'datetime'
+    exclude = ['extension', 'type']
+    actions = [delete_marked]
+    
+
+    def delete_model(self, request, obj):
+        obj.delete()
+        
 class FolderAdmin(admin.ModelAdmin):
     list_display = ['name', 'public']
     search_fields = ['name']
     list_filter = ['public']
+    actions = ['delete_selected']
+
 
 admin.site.register(UploadFile, UploadAdmin)
 admin.site.register(Folder, FolderAdmin)
+admin.site.disable_action('delete_selected')
