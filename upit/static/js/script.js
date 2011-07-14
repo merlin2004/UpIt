@@ -38,7 +38,7 @@ $(document).ready(function() {
         
         
         var cp_link = $(this).children("a").attr("href");
-        cp_link = window.location.protocol + "://" + window.location.host + cp_link;
+        cp_link = window.location.protocol + "//" + window.location.host + cp_link;
         $(".clipboard_field").html(cp_link);
         return false;
     });
