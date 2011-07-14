@@ -20,16 +20,20 @@ along with Foobar. If not, see <http://www.gnu.org/licenses/>.
 
 """
 from upit.upload.models import *
-from django.contrib import admin
 
+from django.contrib import admin
+from django.db.models import Avg
+
+##########################actions#######################################
 def delete_marked(modeladmin, request, queryset):
     for obj in queryset:
         upload = UploadFile.objects.get(pk=obj.id)
         upload.delete()
 delete_marked.short_description = "Delete selected Files"
 
+#########################interfaces#####################################
 class UploadAdmin(admin.ModelAdmin):
-    list_display = ['id', 'datetime', 'user', 'file', 'folder', 'type', 'extension']
+    list_display = ['id', 'datetime', 'user', 'file', 'folder', 'type', 'extension', 'ratings']
     ordering = ['-datetime']
     search_fields = ['datetime', 'user', 'file', 'type', 'extension']
     list_filter = ['user', 'datetime', 'folder__name', 'type', 'extension']
@@ -37,6 +41,10 @@ class UploadAdmin(admin.ModelAdmin):
     exclude = ['extension', 'type']
     actions = [delete_marked]
     
+    def ratings(self, obj):
+        ratings = FileRating.objects.filter(upload_file=obj).aggregate(Avg('stars'))
+        return ratings["stars__avg"]
+        
 
     def delete_model(self, request, obj):
         obj.delete()
