@@ -43,6 +43,7 @@ def index(request):
         if request.user.is_authenticated():
             files = UploadFile.objects.all()
         else:
+            #files = UploadFile.objects.all()
             files = UploadFile.objects.filter(folder__public=True)
     
     # check if user is allowed to see folder
@@ -51,7 +52,7 @@ def index(request):
         if selected_folder.public == False and not request.user.is_authenticated():
             return HttpResponseRedirect( reverse('upit:login') )   
     except Folder.DoesNotExist:
-        pass
+        selected_folder = False 
         
     # get folders
     if request.user.is_authenticated():
@@ -70,7 +71,10 @@ def index(request):
             upload.save()
             return HttpResponseRedirect( reverse('upit:index') )
     else:
-        form = UploadForm()
+        if selected_folder:
+            form = UploadForm({'folder': selected_folder})
+        else:
+            form = UploadForm()
     return render(request, 'upit/index.html', 
                     {   
                         'form': form, 
@@ -127,6 +131,7 @@ def thumb(request, srcid):
     if src.folder.public or request.user.is_authenticated():
         return serve_img(thumb_path) 
     else:
+        #return serve_img(thumb_path) 
         return HttpResponseRedirect( reverse('upit:login') )
         
         
