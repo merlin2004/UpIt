@@ -73,6 +73,12 @@ class UploadFile(models.Model):
     def __unicode__(self):
         return os.path.basename(self.file.path)
 
+
+    def get_avg_rating(self):
+        ratings = FileRating.objects.filter(upload_file=self).aggregate(Avg('stars'))
+        return ratings["stars__avg"]
+
+
     def get_thumb(self):
         """Returns the thumbnail path according to the filetype
         """
