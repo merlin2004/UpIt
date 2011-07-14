@@ -69,7 +69,8 @@ def index(request):
             upload = form.save(commit=False)
             upload.user = request.user
             upload.save()
-            return HttpResponseRedirect( reverse('upit:index') )
+            redirect =  "%s?folder=%s" % (reverse('upit:index'), upload.folder) 
+            return HttpResponseRedirect(redirect)
     else:
         if selected_folder:
             form = UploadForm({'folder': selected_folder})
